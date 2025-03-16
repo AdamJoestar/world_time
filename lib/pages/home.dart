@@ -13,7 +13,9 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/location');
+              },
               icon: Icon(Icons.edit_location),
               label: Text('Edit Location'),
             ),
