@@ -8,28 +8,24 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-
-  void getData() async{
-    
-    Response response = await get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  void getTime() async {
+    String apiKey = 'lOaZowDZm53aB1/8hjEaIg==1P7fRSlBaLWg9YAU';
+    Response response = await get(
+      Uri.parse('https://api.api-ninjas.com/v1/worldtime?timezone=Asia/Jakarta'),
+      headers: {'X-Api-Key': apiKey},
+    );
     Map data = jsonDecode(response.body);
     print(data);
-    print(data['title']);
   }
-
-  
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getTime();
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('loading screen'),
-    );
+    return const Scaffold(body: Text('loading screen'));
   }
 }
