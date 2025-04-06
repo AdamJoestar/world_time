@@ -15,7 +15,13 @@ class _LoadingState extends State<Loading> {
       headers: {'X-Api-Key': apiKey},
     );
     Map data = jsonDecode(response.body);
-    print(data);
+    //print(data);
+
+    // get properties from data
+    String datetime = data['datetime'] ?? 'Unknown datetime';
+    String day = data['day_of_week'] ?? 'No days';
+    print(datetime);
+    print(day);
   }
 
   @override
