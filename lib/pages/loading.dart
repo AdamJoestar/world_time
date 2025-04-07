@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'dart:convert';
 
 class Loading extends StatefulWidget {
   @override
@@ -20,8 +21,12 @@ class _LoadingState extends State<Loading> {
     // get properties from data
     String datetime = data['datetime'] ?? 'Unknown datetime';
     String day = data['day_of_week'] ?? 'No days';
-    print(datetime);
-    print(day);
+    // print(datetime);
+    // print(day);
+
+    //create DateTime object
+    DateTime now = DateTime.parse(datetime);
+    print(now);
   }
 
   @override
