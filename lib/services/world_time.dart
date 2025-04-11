@@ -4,13 +4,13 @@ import 'package:http/http.dart';
 
 class WorldTime {
   String location;
-  String time;
-  String Flag;
+  late String time;
+  String flag;
   String url;
 
-  WorldTime({this.location, this.Flag, this.url});
+  WorldTime({required this.location, required this.flag, required this.url});
 
-  void getTime() async {
+  Future<void> getTime() async {
     String apiKey = 'lOaZowDZm53aB1/8hjEaIg==1P7fRSlBaLWg9YAU';
     Response response = await get(
       Uri.parse('https://api.api-ninjas.com/v1/worldtime?timezone=$url'),
@@ -21,7 +21,7 @@ class WorldTime {
 
     // get properties from data
     String datetime = data['datetime'] ?? 'Unknown datetime';
-    String day = data['day_of_week'] ?? 'No days';
+    // String day = data['day_of_week'] ?? 'No days'; // Removed unused variable
     // print(datetime);
     // print(day);
 
@@ -36,6 +36,6 @@ class WorldTime {
 
 WorldTime instance = WorldTime(
   location: 'Jakarta',
-  Flag: 'indonesia.png',
+  flag: 'indonesia.png',
   url: 'Asia/Jakarta',
 );
