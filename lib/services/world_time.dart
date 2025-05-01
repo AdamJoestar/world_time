@@ -8,12 +8,13 @@ class WorldTime {
   late String time;
   String flag;
   String url;
+  late bool isDaytime;
 
   WorldTime({required this.location, required this.flag, required this.url});
 
   Future<void> getTime() async {
     try {
-      String apiKey = 'lOaZowDZm53aB1/8hjEaIg==1P7fRSlBaLWg9YAU';
+      String apiKey = 'kLJhjen5ioNAi5zvgWKcbg==vbMy8u95XiDP49Wd';
       Response response = await get(
         Uri.parse('https://api.api-ninjas.com/v1/worldtime?timezone=$url'),
         headers: {'X-Api-Key': apiKey},
@@ -29,6 +30,8 @@ class WorldTime {
 
       //create DateTime object
       DateTime now = DateTime.parse(datetime);
+
+      isDaytime = now.hour > 6 && now.hour < 18 ? true : false;
 
       time = DateFormat.jm().format(now);
     } catch (e) {
