@@ -45,14 +45,21 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       data['location'],
-                      style: TextStyle(fontSize: 28, letterSpacing: 2),
+                      style: TextStyle(
+                        fontSize: 28,
+                        letterSpacing: 2,
+                        color: data['isDaytime'] ? Colors.black : Colors.white, // Warna teks untuk siang/malam
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 20),
                 Text(
                   data['time'],
-                  style: TextStyle(fontSize: 66),
+                  style: TextStyle(
+                    fontSize: 66,
+                    color: data['isDaytime'] ? Colors.black : Colors.white, // Warna teks untuk siang/malam
+                  ),
                 ),
               ],
             ),
