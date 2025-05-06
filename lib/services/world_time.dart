@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
@@ -8,7 +7,7 @@ class WorldTime {
   late String time;
   String flag;
   String url;
-  late bool isDaytime;
+  bool isDaytime = false;  // Initialize to false to avoid LateInitializationError
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -19,24 +18,34 @@ class WorldTime {
         Uri.parse('https://api.api-ninjas.com/v1/worldtime?timezone=$url'),
         headers: {'X-Api-Key': apiKey},
       );
+      print('API response status: \${response.statusCode}');
+      print('API response body: \${response.body}');
+
+      if (response.statusCode != 200) {
+        print('API call failed with status: \${response.statusCode}');
+        time = 'Could not get time data';
+        isDaytime = false;
+        return;
+      }
+
       Map data = jsonDecode(response.body);
-      //print(data);
 
-      // get properties from data
       String datetime = data['datetime'] ?? 'Unknown datetime';
-      // String day = data['day_of_week'] ?? 'No days'; // Removed unused variable
-      // print(datetime);
-      // print(day);
+      print('Received datetime: \$datetime');
 
-      //create DateTime object
+      if (datetime == 'Unknown datetime') {
+        throw FormatException('Invalid datetime received from API');
+      }
+
       DateTime now = DateTime.parse(datetime);
 
-      isDaytime = now.hour > 6 && now.hour < 12 ? true : false;
+      isDaytime = now.hour >= 6 && now.hour < 18;
 
       time = DateFormat.jm().format(now);
     } catch (e) {
-      print('Caught error: $e');
+      print('Caught error: \$e');
       time = 'Could not get time data';
+      isDaytime = false;
     }
   }
 }
